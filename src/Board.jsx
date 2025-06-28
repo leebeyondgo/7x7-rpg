@@ -9,6 +9,7 @@ import floorImg from './assets/environment/visual_grid.png';
 import wallImg from './assets/environment/wall_blocking.png';
 import waterImg from './assets/environment/water0.png';
 
+const tileImages = {
   floor: floorImg,
   wall: wallImg,
   water: waterImg,
