@@ -143,14 +143,9 @@ function Board() {
       const item = inv[index];
       if (!item) return inv;
       if (item.type === 'gold') {
-        setResources(res => ({ ...res, gold: res.gold + item.amount }));
-        if (setGold) setGold(g => g + item.amount);
+        setGold(g => g + item.amount);
       } else if (item.type === 'heal') {
-        setResources(res => ({
-          ...res,
-          hp: Math.min(res.hp + item.amount, 100),
-        }));
-        if (setHealth) setHealth(h => Math.min(h + item.amount, 100));
+        setHealth(h => Math.min(h + item.amount, 100));
       }
       return inv.filter((_, i) => i !== index);
     });
