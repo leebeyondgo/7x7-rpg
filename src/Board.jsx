@@ -5,7 +5,6 @@ const BOARD_SIZE = 7;
 const CENTER = Math.floor(BOARD_SIZE / 2);
 
 function Board() {
-  const [position, setPosition] = useState({ row: CENTER, col: CENTER });
   const [showDpad, setShowDpad] = useState(true);
   // 전역 맵에서의 좌표를 관리한다
   const [worldPosition, setWorldPosition] = useState({ row: 0, col: 0 });
