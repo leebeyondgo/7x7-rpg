@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Board.css';
 
 const BOARD_SIZE = 7;
@@ -22,6 +22,32 @@ function Board() {
   const moveLeft = () => move(0, -1);
   const moveRight = () => move(0, 1);
 
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      switch (e.key) {
+        case 'ArrowUp':
+          moveUp();
+          break;
+        case 'ArrowDown':
+          moveDown();
+          break;
+        case 'ArrowLeft':
+          moveLeft();
+          break;
+        case 'ArrowRight':
+          moveRight();
+          break;
+        default:
+          break;
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
+
   const tiles = [];
   for (let r = 0; r < BOARD_SIZE; r++) {
     for (let c = 0; c < BOARD_SIZE; c++) {
@@ -34,6 +60,8 @@ function Board() {
           key={`${worldRow}-${worldCol}`}
           className={`tile${isHero ? ' hero' : ''}`}
           role="presentation"
+          data-row={worldRow}
+          data-col={worldCol}
         />
       );
     }
