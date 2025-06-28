@@ -6,6 +6,7 @@ const CENTER = Math.floor(BOARD_SIZE / 2);
 
 function Board() {
   const [position, setPosition] = useState({ row: CENTER, col: CENTER });
+  const [showDpad, setShowDpad] = useState(true);
 
   const move = (dRow, dCol) => {
     setPosition(pos => {
@@ -35,18 +36,28 @@ function Board() {
   }
 
   return (
-    <div className="board-container">
+    <div className={`board-container${showDpad ? '' : ' collapsed'}`}>
       <div className="board" data-testid="board">
         {tiles}
       </div>
-      <div className="dpad">
-        <button onClick={moveUp} aria-label="up">↑</button>
-        <div className="middle-row">
-          <button onClick={moveLeft} aria-label="left">←</button>
-          <button onClick={moveRight} aria-label="right">→</button>
+      <button
+        type="button"
+        className="dpad-toggle"
+        onClick={() => setShowDpad(prev => !prev)}
+        aria-label="toggle dpad"
+      >
+        {showDpad ? 'Hide D-pad' : 'Show D-pad'}
+      </button>
+      {showDpad && (
+        <div className="dpad">
+          <button onClick={moveUp} aria-label="up">↑</button>
+          <div className="middle-row">
+            <button onClick={moveLeft} aria-label="left">←</button>
+            <button onClick={moveRight} aria-label="right">→</button>
+          </div>
+          <button onClick={moveDown} aria-label="down">↓</button>
         </div>
-        <button onClick={moveDown} aria-label="down">↓</button>
-      </div>
+      )}
     </div>
   );
 }
