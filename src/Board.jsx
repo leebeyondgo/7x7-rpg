@@ -1,6 +1,16 @@
 import React, { useState, useEffect, useCallback, useContext } from 'react';
 import './Board.css';
 import { GameContext } from './GameContext';
+import level1 from './maps/level1';
+import floorImg from './assets/environment/visual_grid.png';
+import wallImg from './assets/environment/wall_blocking.png';
+import waterImg from './assets/environment/water0.png';
+
+const tileImages = {
+  floor: floorImg,
+  wall: wallImg,
+  water: waterImg,
+};
 
 const BOARD_SIZE = 7;
 const CENTER = Math.floor(BOARD_SIZE / 2);
@@ -59,6 +69,9 @@ function Board() {
       const worldRow = worldPosition.row + (r - CENTER);
       const worldCol = worldPosition.col + (c - CENTER);
       const isHero = r === CENTER && c === CENTER;
+      const rowData = level1[worldRow];
+      const tileType = rowData && rowData[worldCol] ? rowData[worldCol] : 'floor';
+      const bg = tileImages[tileType] || floorImg;
       tiles.push(
         <div
           key={`${worldRow}-${worldCol}`}
@@ -66,6 +79,7 @@ function Board() {
           role="presentation"
           data-row={worldRow}
           data-col={worldCol}
+          style={{ backgroundImage: `url(${bg})` }}
         />
       );
     }
