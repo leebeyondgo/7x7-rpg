@@ -17,15 +17,15 @@ test('monster appears on the board', () => {
 
 // 몬스터 위로 이동하면 체력이 감소한다
 test('colliding with monster decreases player HP', () => {
-  render(
+  const { container } = render(
     <GameProvider>
       <Board />
     </GameProvider>
   );
-  const status = screen.getByTestId('status');
-  expect(status).toHaveTextContent('HP: 100');
+  const resources = container.querySelector('.resources');
+  expect(resources).toHaveTextContent('HP: 100');
 
   fireEvent.keyDown(document, { key: 'ArrowRight', code: 'ArrowRight' });
 
-  expect(status).toHaveTextContent('HP: 99');
+  expect(resources).toHaveTextContent('HP: 99');
 });

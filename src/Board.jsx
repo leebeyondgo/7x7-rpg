@@ -184,7 +184,6 @@ function Board() {
 
   return (
     <div className={`board-container${showDpad ? '' : ' collapsed'}`}>
-      <div className="status" data-testid="status">HP: {health}</div>
       <div className="board" data-testid="board">
         {tiles}
       </div>
