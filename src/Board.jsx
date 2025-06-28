@@ -34,28 +34,32 @@ function Board() {
   const [showDpad, setShowDpad] = useState(true);
   // 전역 맵에서의 좌표를 관리한다
   const [worldPosition, setWorldPosition] = useState({ row: 0, col: 0 });
-  const [playerHealth, setPlayerHealth] = useState(10);
   const [monsters, setMonsters] = useState([
     new Monster(0, 1),
     new Monster(-1, -1),
   ]);
 
-  const { consumeTurn, setGold, setHealth } = useContext(GameContext);
+  const {
+    consumeTurn,
+    health,
+    setHealth,
+    gold,
+    setGold,
+  } = useContext(GameContext);
   const [itemsOnMap, setItemsOnMap] = useState(INITIAL_ITEMS);
   const [inventory, setInventory] = useState([]);
-  const [resources, setResources] = useState({ hp: 100, gold: 0 });
 
   const handleCombat = useCallback((playerPos, list) => list
     .map((m) => {
       if (m.row === playerPos.row && m.col === playerPos.col) {
-        setPlayerHealth((h) => h - 1);
+        setHealth((h) => Math.max(h - 1, 0));
         const hp = m.hp - 1;
         if (hp <= 0) return null;
         return new Monster(m.row, m.col, hp);
       }
       return m;
     })
-    .filter(Boolean), [setPlayerHealth]);
+    .filter(Boolean), [setHealth]);
 
   const moveMonsterAI = useCallback((list) => list.map((m) => {
     const dirs = [[1, 0], [-1, 0], [0, 1], [0, -1], [0, 0]];
@@ -135,7 +139,7 @@ function Board() {
   }, [worldPosition, itemsOnMap]);
 
   const useItem = useCallback((index) => {
-    setInventory(inv => {
+    setInventory((inv) => {
       const item = inv[index];
       if (!item) return inv;
       if (item.type === 'gold') {
@@ -180,7 +184,7 @@ function Board() {
 
   return (
     <div className={`board-container${showDpad ? '' : ' collapsed'}`}>
-      <div className="status" data-testid="status">HP: {playerHealth}</div>
+      <div className="status" data-testid="status">HP: {health}</div>
       <div className="board" data-testid="board">
         {tiles}
       </div>
@@ -202,7 +206,7 @@ function Board() {
           <button onClick={moveDown} aria-label="down">↓</button>
         </div>
       )}
-      <div className="resources">HP: {resources.hp} Gold: {resources.gold}</div>
+      <div className="resources">HP: {health} Gold: {gold}</div>
       <Inventory items={inventory} onUse={useItem} />
     </div>
   );
