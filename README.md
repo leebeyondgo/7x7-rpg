@@ -35,6 +35,21 @@ Shattered Pixel Dungeon의 그래픽과 사운드를 활용하여 기본적인 �
 
 UI 구현이 완료되면 화면 상단의 상태 표시줄을 통해 현재 금화, 체력, 식량을 실시간으로 확인할 수 있습니다. 시간 단위는 별도의 숫자로 표시되지는 않지만, 캐릭터가 한 번 행동할 때마다 한 턴이 경과한다고 생각하면 됩니다.
 
+## 추가되는 기능
+본 프로젝트에서는 기본 이동 외에도 여러 RPG 요소가 순차적으로 도입되고 있습니다.
+
+### 자원 관리
+- 게임 진행 중 금화, 체력, 식량의 변화를 실시간으로 관리합니다.
+- 체력 회복이나 상점 구매에 필요한 자원을 아껴 사용해야 합니다.
+
+### 아이템
+- 던전 내 상자나 몬스터를 통해 다양한 아이템을 얻을 수 있습니다.
+- 획득한 아이템은 인벤토리에서 선택해 사용하거나 버릴 수 있습니다.
+
+### 몬스터
+- 각 층에는 여러 종류의 몬스터가 배치되며 플레이어를 추격하거나 공격합니다.
+- 전투는 턴 단위로 진행되며, 몬스터 처치 시 전리품을 얻을 수도 있습니다.
+
 ## 배포 주소
 GitHub Pages를 통해 공개되며 아래 주소에서 접속할 수 있습니다.
 <https://leebeyondgo.github.io/7x7-rpg/>
@@ -42,6 +57,7 @@ GitHub Pages를 통해 공개되며 아래 주소에서 접속할 수 있습니�
 ## 라이선스
 이 프로젝트의 소스 코드는 `LICENSE` 파일에 명시된 바와 같이 **GNU General Public License v3.0**을 따릅니다.
 
-### Shattered Pixel Dungeon 에셋
-게임에 사용되는 이미지와 사운드 등 여러 에셋은 [Shattered Pixel Dungeon](https://github.com/00-Evan/shattered-pixel-dungeon)에서 가져왔습니다.
-해당 에셋은 Shattered Pixel Dungeon의 라이선스 조건(주로 GNU GPL v3)을 준수하여 사용해야 하며, 원저작자인 Evan Debenham에게 저작권이 있습니다.
+## 에셋 출처 및 라이선스
+게임에 포함된 이미지, 사운드, 폰트 등 모든 리소스는 [Shattered Pixel Dungeon](https://github.com/00-Evan/shattered-pixel-dungeon) 프로젝트에서 제공된 파일을 기반으로 합니다.
+에셋 역시 **GNU GPL v3** 라이선스를 따르며, 저작권은 원저작자인 **Evan Debenham**에게 있습니다.
+에셋 사용 시에는 Shattered Pixel Dungeon의 라이선스 규정과 저작자 표기를 준수해야 합니다.
