@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import './Board.css';
 
 const BOARD_SIZE = 7;
@@ -9,18 +9,18 @@ function Board() {
   // 전역 맵에서의 좌표를 관리한다
   const [worldPosition, setWorldPosition] = useState({ row: 0, col: 0 });
 
-  const move = (dRow, dCol) => {
+  const move = useCallback((dRow, dCol) => {
     // 보드 내 위치가 아닌 전역 위치를 이동시킨다
     setWorldPosition(pos => ({
       row: pos.row + dRow,
       col: pos.col + dCol,
     }));
-  };
+  }, []);
 
-  const moveUp = () => move(-1, 0);
-  const moveDown = () => move(1, 0);
-  const moveLeft = () => move(0, -1);
-  const moveRight = () => move(0, 1);
+  const moveUp = useCallback(() => move(-1, 0), [move]);
+  const moveDown = useCallback(() => move(1, 0), [move]);
+  const moveLeft = useCallback(() => move(0, -1), [move]);
+  const moveRight = useCallback(() => move(0, 1), [move]);
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -46,7 +46,7 @@ function Board() {
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
     };
-  }, []);
+  }, [moveUp, moveDown, moveLeft, moveRight]);
 
   const tiles = [];
   for (let r = 0; r < BOARD_SIZE; r++) {
