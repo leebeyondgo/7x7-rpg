@@ -16,11 +16,13 @@
   width: 40px;
   height: 40px;
   background-color: #eee;
+  background-size: cover;
+  background-position: center;
   border: 1px solid #ccc;
 }
 
 .tile.hero {
-  background-color: #f44336;
+  box-shadow: inset 0 0 0 2px #f44336;
 }
 
 .tile.monster {
@@ -55,6 +57,16 @@
 
 .dpad-toggle {
   display: none;
+}
+
+.inventory {
+  margin-top: 10px;
+  list-style: none;
+  padding: 0;
+}
+
+.resources {
+  margin-top: 10px;
 }
 
 @media (max-width: 600px) {
