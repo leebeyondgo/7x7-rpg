@@ -1,13 +1,19 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
+import stepSfx from './assets/sounds/step.mp3';
 import './Board.css';
 
 const BOARD_SIZE = 7;
 const CENTER = Math.floor(BOARD_SIZE / 2);
 
 function Board() {
+  const stepAudioRef = useRef(null);
   const [showDpad, setShowDpad] = useState(true);
   // 전역 맵에서의 좌표를 관리한다
   const [worldPosition, setWorldPosition] = useState({ row: 0, col: 0 });
+
+  useEffect(() => {
+    stepAudioRef.current = new Audio(stepSfx);
+  }, []);
 
   const move = useCallback((dRow, dCol) => {
     // 보드 내 위치가 아닌 전역 위치를 이동시킨다
@@ -15,6 +21,10 @@ function Board() {
       row: pos.row + dRow,
       col: pos.col + dCol,
     }));
+    if (stepAudioRef.current) {
+      stepAudioRef.current.currentTime = 0;
+      stepAudioRef.current.play();
+    }
   }, []);
 
   const moveUp = useCallback(() => move(-1, 0), [move]);
