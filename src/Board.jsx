@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useContext } from 'react';
 import './Board.css';
+import { GameContext } from './GameContext';
 import level1 from './maps/level1';
 import floorImg from './assets/environment/visual_grid.png';
 import wallImg from './assets/environment/wall_blocking.png';
@@ -18,6 +19,7 @@ function Board() {
   const [showDpad, setShowDpad] = useState(true);
   // 전역 맵에서의 좌표를 관리한다
   const [worldPosition, setWorldPosition] = useState({ row: 0, col: 0 });
+  const { consumeTurn } = useContext(GameContext);
 
   const move = useCallback((dRow, dCol) => {
     // 보드 내 위치가 아닌 전역 위치를 이동시킨다
@@ -25,7 +27,8 @@ function Board() {
       row: pos.row + dRow,
       col: pos.col + dCol,
     }));
-  }, []);
+    consumeTurn();
+  }, [consumeTurn]);
 
   const moveUp = useCallback(() => move(-1, 0), [move]);
   const moveDown = useCallback(() => move(1, 0), [move]);
