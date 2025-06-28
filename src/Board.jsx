@@ -5,14 +5,15 @@ const BOARD_SIZE = 7;
 const CENTER = Math.floor(BOARD_SIZE / 2);
 
 function Board() {
-  const [position, setPosition] = useState({ row: CENTER, col: CENTER });
+  // 전역 맵에서의 좌표를 관리한다
+  const [worldPosition, setWorldPosition] = useState({ row: 0, col: 0 });
 
   const move = (dRow, dCol) => {
-    setPosition(pos => {
-      const newRow = Math.min(Math.max(pos.row + dRow, 0), BOARD_SIZE - 1);
-      const newCol = Math.min(Math.max(pos.col + dCol, 0), BOARD_SIZE - 1);
-      return { row: newRow, col: newCol };
-    });
+    // 보드 내 위치가 아닌 전역 위치를 이동시킨다
+    setWorldPosition(pos => ({
+      row: pos.row + dRow,
+      col: pos.col + dCol,
+    }));
   };
 
   const moveUp = () => move(-1, 0);
@@ -23,10 +24,13 @@ function Board() {
   const tiles = [];
   for (let r = 0; r < BOARD_SIZE; r++) {
     for (let c = 0; c < BOARD_SIZE; c++) {
-      const isHero = r === position.row && c === position.col;
+      // 현재 보드 타일이 전역 맵에서 어떤 위치에 해당하는지 계산
+      const worldRow = worldPosition.row + (r - CENTER);
+      const worldCol = worldPosition.col + (c - CENTER);
+      const isHero = r === CENTER && c === CENTER;
       tiles.push(
         <div
-          key={`${r}-${c}`}
+          key={`${worldRow}-${worldCol}`}
           className={`tile${isHero ? ' hero' : ''}`}
           role="presentation"
         />
