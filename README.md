@@ -20,6 +20,10 @@ Shattered Pixel Dungeon의 그래픽과 사운드를 활용하여 기본적인 �
    npm run build
    ```
 
+## 조작 방법
+게임의 주인공은 화면 하단에 표시되는 D-패드나 키보드의 화살표 키로 이동합니다.
+모바일 기기에서는 공간 확보를 위해 D-패드를 접어 둘 수 있으며 필요할 때 버튼을 눌러 다시 펼칠 수 있습니다.
+
 ## 배포 주소
 GitHub Pages를 통해 공개되며 아래 주소에서 접속할 수 있습니다.
 <https://leebeyondgo.github.io/7x7-rpg/>
