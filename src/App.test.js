@@ -74,3 +74,12 @@ test('D-pad can be toggled on small screens', () => {
   fireEvent.click(toggle);
   expect(container.querySelector('.dpad')).toBeInTheDocument();
 });
+
+test('status bar displays resource values', () => {
+  render(<App />);
+  const status = screen.getByTestId('status-bar');
+  expect(status).toHaveTextContent(/HP:/i);
+  expect(status).toHaveTextContent(/Food:/i);
+  expect(status).toHaveTextContent(/Gold:/i);
+  expect(status).toHaveTextContent(/Turn:/i);
+});
