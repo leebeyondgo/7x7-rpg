@@ -24,6 +24,7 @@ function Board() {
 
   useEffect(() => {
     const handleKeyDown = (e) => {
+      e.preventDefault();
       switch (e.key) {
         case 'ArrowUp':
           moveUp();
