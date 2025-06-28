@@ -23,6 +23,15 @@
   background-color: #f44336;
 }
 
+.tile.monster {
+  background-color: #2196f3;
+}
+
+.status {
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
 .dpad {
   margin-top: 10px;
   display: flex;
