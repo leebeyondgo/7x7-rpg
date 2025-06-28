@@ -1,22 +1,23 @@
-# Node modules
-node_modules/
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# Build output
-/dist/
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
 
-# Environment variables
-.env
+# testing
+/coverage
 
-# Logs
+# production
+/build
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-
-# Runtime data
-pids
-*.pid
-*.seed
-
-# Misc
-.DS_Store
-
