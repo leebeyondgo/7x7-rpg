@@ -1,13 +1,19 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
-import stepSfx from './assets/sounds/step.mp3';
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+  useRef,
+  useContext,
+} from 'react';
 import './Board.css';
-import Monster from './entities/Monster';
 import Inventory from './components/Inventory';
+import Monster from './entities/Monster';
 import { GameContext } from './GameContext';
 import level1 from './maps/level1';
 import floorImg from './assets/environment/visual_grid.png';
 import wallImg from './assets/environment/wall_blocking.png';
 import waterImg from './assets/environment/water0.png';
+import stepSfx from './assets/sounds/step.mp3';
 
 const tileImages = {
   floor: floorImg,
@@ -33,6 +39,11 @@ function Board() {
     new Monster(0, 1),
     new Monster(-1, -1),
   ]);
+
+  const { consumeTurn } = useContext(GameContext);
+  const [itemsOnMap, setItemsOnMap] = useState(INITIAL_ITEMS);
+  const [inventory, setInventory] = useState([]);
+  const [resources, setResources] = useState({ hp: 100, gold: 0 });
 
   const handleCombat = useCallback((playerPos, list) => list
     .map((m) => {
@@ -64,30 +75,18 @@ function Board() {
 
     setWorldPosition(newPos);
     setMonsters(updated);
-  }, [worldPosition, monsters, handleCombat, moveMonsterAI]);
 
-  const [itemsOnMap, setItemsOnMap] = useState(INITIAL_ITEMS);
-  const [inventory, setInventory] = useState([]);
-  const [resources, setResources] = useState({ hp: 100, gold: 0 });
-  const { consumeTurn } = useContext(GameContext);
+    if (stepAudioRef.current) {
+      stepAudioRef.current.currentTime = 0;
+      stepAudioRef.current.play();
+    }
+    consumeTurn();
+  }, [worldPosition, monsters, handleCombat, moveMonsterAI, consumeTurn]);
 
   useEffect(() => {
     stepAudioRef.current = new Audio(stepSfx);
   }, []);
 
-  const move = useCallback((dRow, dCol) => {
-    // 보드 내 위치가 아닌 전역 위치를 이동시킨다
-    setWorldPosition(pos => ({
-      row: pos.row + dRow,
-      col: pos.col + dCol,
-    }));
-    if (stepAudioRef.current) {
-      stepAudioRef.current.currentTime = 0;
-      stepAudioRef.current.play();
-    }
-  }, []);
-    consumeTurn();
-  }, [consumeTurn]);
 
   const moveUp = useCallback(() => move(-1, 0), [move]);
   const moveDown = useCallback(() => move(1, 0), [move]);
@@ -178,31 +177,29 @@ function Board() {
   }
 
   return (
-    <div>
-      <div className={`board-container${showDpad ? '' : ' collapsed'}`}>
-        <div className="status" data-testid="status">HP: {playerHealth}</div>
-        <div className="board" data-testid="board">
-          {tiles}
-        </div>
-        <button
-          type="button"
-          className="dpad-toggle"
-          onClick={() => setShowDpad(prev => !prev)}
-          aria-label="toggle dpad"
-        >
-          {showDpad ? 'Hide D-pad' : 'Show D-pad'}
-        </button>
-        {showDpad && (
-          <div className="dpad">
-            <button onClick={moveUp} aria-label="up">↑</button>
-            <div className="middle-row">
-              <button onClick={moveLeft} aria-label="left">←</button>
-              <button onClick={moveRight} aria-label="right">→</button>
-            </div>
-            <button onClick={moveDown} aria-label="down">↓</button>
-          </div>
-        )}
+    <div className={`board-container${showDpad ? '' : ' collapsed'}`}>
+      <div className="status" data-testid="status">HP: {playerHealth}</div>
+      <div className="board" data-testid="board">
+        {tiles}
       </div>
+      <button
+        type="button"
+        className="dpad-toggle"
+        onClick={() => setShowDpad(prev => !prev)}
+        aria-label="toggle dpad"
+      >
+        {showDpad ? 'Hide D-pad' : 'Show D-pad'}
+      </button>
+      {showDpad && (
+        <div className="dpad">
+          <button onClick={moveUp} aria-label="up">↑</button>
+          <div className="middle-row">
+            <button onClick={moveLeft} aria-label="left">←</button>
+            <button onClick={moveRight} aria-label="right">→</button>
+          </div>
+          <button onClick={moveDown} aria-label="down">↓</button>
+        </div>
+      )}
       <div className="resources">HP: {resources.hp} Gold: {resources.gold}</div>
       <Inventory items={inventory} onUse={useItem} />
     </div>
