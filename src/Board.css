@@ -48,6 +48,16 @@
   display: none;
 }
 
+.inventory {
+  margin-top: 10px;
+  list-style: none;
+  padding: 0;
+}
+
+.resources {
+  margin-top: 10px;
+}
+
 @media (max-width: 600px) {
   .dpad-toggle {
     display: block;
