@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useCallback, useContext } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
+import stepSfx from './assets/sounds/step.mp3';
 import './Board.css';
 import Monster from './entities/Monster';
 import Inventory from './components/Inventory';
@@ -22,6 +23,7 @@ const INITIAL_ITEMS = {
 };
 
 function Board() {
+  const stepAudioRef = useRef(null);
   const [showDpad, setShowDpad] = useState(true);
   // 전역 맵에서의 좌표를 관리한다
   const [worldPosition, setWorldPosition] = useState({ row: 0, col: 0 });
@@ -68,12 +70,21 @@ function Board() {
   const [resources, setResources] = useState({ hp: 100, gold: 0 });
   const { consumeTurn } = useContext(GameContext);
 
+  useEffect(() => {
+    stepAudioRef.current = new Audio(stepSfx);
+  }, []);
+
   const move = useCallback((dRow, dCol) => {
     // 보드 내 위치가 아닌 전역 위치를 이동시킨다
     setWorldPosition(pos => ({
       row: pos.row + dRow,
       col: pos.col + dCol,
     }));
+    if (stepAudioRef.current) {
+      stepAudioRef.current.currentTime = 0;
+      stepAudioRef.current.play();
+    }
+  }, []);
     consumeTurn();
   }, [consumeTurn]);
 
