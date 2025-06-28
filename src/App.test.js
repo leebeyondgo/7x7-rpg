@@ -83,3 +83,16 @@ test('status bar displays resource values', () => {
   expect(status).toHaveTextContent(/Gold:/i);
   expect(status).toHaveTextContent(/Turn:/i);
 });
+
+test('using inventory item updates context and status bar', () => {
+  render(<App />);
+  const status = screen.getByTestId('status-bar');
+  expect(status).toHaveTextContent('Gold: 0');
+
+  fireEvent.keyDown(document, { key: 'ArrowDown', code: 'ArrowDown' });
+
+  const useButton = screen.getByRole('button', { name: /use/i });
+  fireEvent.click(useButton);
+
+  expect(status).toHaveTextContent('Gold: 10');
+});

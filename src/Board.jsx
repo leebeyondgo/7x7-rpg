@@ -40,7 +40,7 @@ function Board() {
     new Monster(-1, -1),
   ]);
 
-  const { consumeTurn } = useContext(GameContext);
+  const { consumeTurn, setGold, setHealth } = useContext(GameContext);
   const [itemsOnMap, setItemsOnMap] = useState(INITIAL_ITEMS);
   const [inventory, setInventory] = useState([]);
   const [resources, setResources] = useState({ hp: 100, gold: 0 });
@@ -140,15 +140,17 @@ function Board() {
       if (!item) return inv;
       if (item.type === 'gold') {
         setResources(res => ({ ...res, gold: res.gold + item.amount }));
+        if (setGold) setGold(g => g + item.amount);
       } else if (item.type === 'heal') {
         setResources(res => ({
           ...res,
           hp: Math.min(res.hp + item.amount, 100),
         }));
+        if (setHealth) setHealth(h => Math.min(h + item.amount, 100));
       }
       return inv.filter((_, i) => i !== index);
     });
-  }, []);
+  }, [setGold, setHealth]);
 
   const tiles = [];
   for (let r = 0; r < BOARD_SIZE; r++) {
