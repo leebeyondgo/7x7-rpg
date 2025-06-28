@@ -1,70 +1,32 @@
-# Getting Started with Create React App
+# 7x7 RPG
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 프로젝트 개요
+7x7 RPG는 React를 사용하여 간단한 7x7 크기 던전을 탐험하는 RPG 게임을 구현하기 위한 프로젝트입니다.
+Shattered Pixel Dungeon의 그래픽과 사운드를 활용하여 기본적인 게임 플레이를 구현하는 것을 목표로 합니다.
 
-## Available Scripts
+## 설치 및 실행 방법
+1. Node.js 18 이상이 설치되어 있어야 합니다.
+2. 저장소를 클론한 뒤 의존성을 설치합니다.
+   ```bash
+   npm install
+   ```
+3. 개발 서버 실행은 다음 명령으로 수행합니다.
+   ```bash
+   npm start
+   ```
+   브라우저에서 <http://localhost:3000> 을 열어 확인할 수 있습니다.
+4. 배포용 빌드는 다음과 같이 생성합니다.
+   ```bash
+   npm run build
+   ```
 
-In the project directory, you can run:
+## 배포 주소
+GitHub Pages를 통해 공개되며 아래 주소에서 접속할 수 있습니다.
+<https://leebeyondgo.github.io/7x7-rpg/>
 
-### `npm start`
+## 라이선스
+이 프로젝트의 소스 코드는 `LICENSE` 파일에 명시된 바와 같이 **GNU General Public License v3.0**을 따릅니다.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Shattered Pixel Dungeon 에셋
+게임에 사용되는 이미지와 사운드 등 여러 에셋은 [Shattered Pixel Dungeon](https://github.com/00-Evan/shattered-pixel-dungeon)에서 가져왔습니다.
+해당 에셋은 Shattered Pixel Dungeon의 라이선스 조건(주로 GNU GPL v3)을 준수하여 사용해야 하며, 원저작자인 Evan Debenham에게 저작권이 있습니다.
