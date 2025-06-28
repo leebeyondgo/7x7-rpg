@@ -1,0 +1,41 @@
+.board-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(7, 40px);
+  grid-template-rows: repeat(7, 40px);
+  gap: 2px;
+}
+
+.tile {
+  width: 40px;
+  height: 40px;
+  background-color: #eee;
+  border: 1px solid #ccc;
+}
+
+.tile.hero {
+  background-color: #f44336;
+}
+
+.dpad {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dpad button {
+  width: 40px;
+  height: 40px;
+  margin: 2px;
+}
+
+.dpad .middle-row {
+  display: flex;
+}
