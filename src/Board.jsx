@@ -1,6 +1,16 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useContext } from 'react';
 import './Board.css';
 import Inventory from './components/Inventory';
+import { GameContext } from './GameContext';
+import level1 from './maps/level1';
+import floorImg from './assets/environment/visual_grid.png';
+import wallImg from './assets/environment/wall_blocking.png';
+import waterImg from './assets/environment/water0.png';
+
+  floor: floorImg,
+  wall: wallImg,
+  water: waterImg,
+};
 
 const BOARD_SIZE = 7;
 const CENTER = Math.floor(BOARD_SIZE / 2);
@@ -17,6 +27,7 @@ function Board() {
   const [itemsOnMap, setItemsOnMap] = useState(INITIAL_ITEMS);
   const [inventory, setInventory] = useState([]);
   const [resources, setResources] = useState({ hp: 100, gold: 0 });
+  const { consumeTurn } = useContext(GameContext);
 
   const move = useCallback((dRow, dCol) => {
     // 보드 내 위치가 아닌 전역 위치를 이동시킨다
@@ -24,7 +35,8 @@ function Board() {
       row: pos.row + dRow,
       col: pos.col + dCol,
     }));
-  }, []);
+    consumeTurn();
+  }, [consumeTurn]);
 
   const moveUp = useCallback(() => move(-1, 0), [move]);
   const moveDown = useCallback(() => move(1, 0), [move]);
@@ -95,6 +107,9 @@ function Board() {
       const worldRow = worldPosition.row + (r - CENTER);
       const worldCol = worldPosition.col + (c - CENTER);
       const isHero = r === CENTER && c === CENTER;
+      const rowData = level1[worldRow];
+      const tileType = rowData && rowData[worldCol] ? rowData[worldCol] : 'floor';
+      const bg = tileImages[tileType] || floorImg;
       tiles.push(
         <div
           key={`${worldRow}-${worldCol}`}
@@ -102,6 +117,7 @@ function Board() {
           role="presentation"
           data-row={worldRow}
           data-col={worldCol}
+          style={{ backgroundImage: `url(${bg})` }}
         />
       );
     }
