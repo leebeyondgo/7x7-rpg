@@ -39,3 +39,23 @@
 .dpad .middle-row {
   display: flex;
 }
+
+.board-container.collapsed .dpad {
+  display: none;
+}
+
+.dpad-toggle {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .dpad-toggle {
+    display: block;
+    margin-top: 10px;
+    background: transparent;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 4px 8px;
+    color: inherit;
+  }
+}
