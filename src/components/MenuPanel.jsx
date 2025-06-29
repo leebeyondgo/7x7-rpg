@@ -1,8 +1,16 @@
 import React, { useState } from 'react';
 import Inventory from './Inventory';
+import MapView from './MapView';
 import '../MenuPanel.css';
 
-function MenuPanel({ inventory = [], onUseItem, onClose }) {
+function MenuPanel({
+  inventory = [],
+  onUseItem,
+  onClose,
+  world,
+  worldPosition,
+  monsters,
+}) {
   const tabs = [
     {
       id: 'inventory',
@@ -13,7 +21,13 @@ function MenuPanel({ inventory = [], onUseItem, onClose }) {
       id: 'map',
       label: 'Map',
       content: (
-        <div className="map-placeholder">Map coming soon...</div>
+        <MapView
+          inline
+          world={world}
+          worldPosition={worldPosition}
+          monsters={monsters}
+          dimensions={{ rows: world?.length || 0, cols: world && world[0] ? world[0].length : 0 }}
+        />
       ),
     },
   ];
