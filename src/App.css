@@ -37,6 +37,18 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: var(--text-color);
+  position: relative;
+}
+
+.theme-toggle {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--text-color);
 }
 
 .App-link {
