@@ -7,6 +7,7 @@ import React, {
 } from 'react';
 import './Board.css';
 import Inventory from './components/Inventory';
+import MenuPanel from './components/MenuPanel';
 import Monster from './entities/Monster';
 import { GameContext } from './GameContext';
 import level1 from './maps/level1';
@@ -46,6 +47,7 @@ function Board() {
   } = useContext(GameContext);
   const [itemsOnMap, setItemsOnMap] = useState(INITIAL_ITEMS);
   const [inventory, setInventory] = useState([]);
+  const [showMenu, setShowMenu] = useState(false);
 
   const handleCombat = useCallback((playerPos, list) => list
     .map((m) => {
@@ -198,7 +200,21 @@ function Board() {
         </div>
       )}
       <div className="resources">HP: {health} Gold: {gold}</div>
+      <button
+        type="button"
+        className="menu-button"
+        onClick={() => setShowMenu(true)}
+      >
+        Menu
+      </button>
       <Inventory items={inventory} onUse={useItem} />
+      {showMenu && (
+        <MenuPanel
+          inventory={inventory}
+          onUseItem={useItem}
+          onClose={() => setShowMenu(false)}
+        />
+      )}
     </div>
   );
 }
