@@ -14,6 +14,7 @@ const tileColors = {
   grassland: '#7cfc00',
 };
 
+
 function MapView({ onClose, worldPosition, monsters, world, dimensions }) {
   const rows = dimensions?.rows ?? world.length;
   const cols = dimensions?.cols ?? (world[0] ? world[0].length : 0);
@@ -25,6 +26,13 @@ function MapView({ onClose, worldPosition, monsters, world, dimensions }) {
       const isMonster = monsters.some((m) => m.row === r && m.col === c);
       const rowData = world[r] || [];
       const tileType = rowData[c] || 'floor';
+
+  const tiles = [];
+  for (let r = 0; r < world.length; r += 1) {
+    for (let c = 0; c < world[r].length; c += 1) {
+      const isHero = r === worldPosition.row && c === worldPosition.col;
+      const isMonster = monsters.some((m) => m.row === r && m.col === c);
+      const tileType = world[r][c] || 'floor';
       tiles.push(
         <div
           key={`${r}-${c}`}
