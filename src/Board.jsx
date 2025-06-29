@@ -53,7 +53,7 @@ function Board() {
     setHealth,
     setGold,
   } = useContext(GameContext);
-  const [itemsOnMap, setItemsOnMap] = useState(INITIAL_ITEMS);
+  const [, setItemsOnMap] = useState(INITIAL_ITEMS);
   const [inventory, setInventory] = useState([]);
   const [showMenu, setShowMenu] = useState(false);
 
