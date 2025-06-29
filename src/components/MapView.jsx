@@ -1,5 +1,5 @@
 import React from 'react';
-import openWorld from '../maps/openWorld';
+import openWorld from '../maps/level1';
 import './MapView.css';
 
 const tileColors = {

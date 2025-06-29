@@ -96,3 +96,21 @@ test('using inventory item updates context and status bar', () => {
 
   expect(status).toHaveTextContent('Gold: 10');
 });
+
+test('column index wraps to 0 when moving right past the edge', async () => {
+  render(<App />);
+  const board = await screen.findByTestId('board');
+  const centerIndex = Math.floor(board.children.length / 2);
+
+  for (let i = 0; i < 9; i += 1) {
+    fireEvent.keyDown(document, { key: 'ArrowRight', code: 'ArrowRight' });
+  }
+
+  let centerTile = screen.getByTestId('board').children[centerIndex];
+  expect(Number(centerTile.getAttribute('data-col'))).toBe(9);
+
+  fireEvent.keyDown(document, { key: 'ArrowRight', code: 'ArrowRight' });
+
+  centerTile = screen.getByTestId('board').children[centerIndex];
+  expect(Number(centerTile.getAttribute('data-col'))).toBe(0);
+});
