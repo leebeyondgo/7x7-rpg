@@ -35,23 +35,46 @@
 
 .dpad {
   margin-top: 10px;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-areas:
+    " .    up     .   "
+    "left action right"
+    " .   down   .   ";
+  grid-template-columns: repeat(3, 40px);
+  grid-template-rows: repeat(3, 40px);
+  gap: 2px;
+  justify-content: center;
   align-items: center;
 }
 
 .dpad button {
   width: 40px;
   height: 40px;
-  margin: 2px;
+  margin: 0;
   background-color: #fff;
   border: 1px solid #aaa;
   border-radius: 4px;
   font-family: inherit;
 }
 
-.dpad .middle-row {
-  display: flex;
+.dpad button.up {
+  grid-area: up;
+}
+
+.dpad button.down {
+  grid-area: down;
+}
+
+.dpad button.left {
+  grid-area: left;
+}
+
+.dpad button.right {
+  grid-area: right;
+}
+
+.dpad button.action {
+  grid-area: action;
 }
 
 .board-container.collapsed .dpad {
