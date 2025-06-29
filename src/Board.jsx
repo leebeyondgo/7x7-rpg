@@ -11,8 +11,12 @@ import MenuPanel from './components/MenuPanel';
 import MapView from './components/MapView';
 import Monster from './entities/Monster';
 import { GameContext } from './GameContext';
+import openWorld from './maps/level1';
 import loadWorld from './maps/loadWorld';
 import stepSfx from './assets/sounds/step.mp3';
+
+const MAP_ROWS = openWorld.length;
+const MAP_COLS = openWorld[0].length;
 
 const tileColors = {
   floor: '#8bc34a',  // 초원
@@ -76,8 +80,8 @@ function Board() {
 
   const move = useCallback((dRow, dCol) => {
     const newPos = {
-      row: worldPosition.row + dRow,
-      col: worldPosition.col + dCol,
+      row: (worldPosition.row + dRow + MAP_ROWS) % MAP_ROWS,
+      col: (worldPosition.col + dCol + MAP_COLS) % MAP_COLS,
     };
 
     let updated = handleCombat(newPos, monsters);
