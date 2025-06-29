@@ -1,5 +1,4 @@
 import React from 'react';
-import openWorld from '../maps/openWorld';
 import './MapView.css';
 
 const tileColors = {
@@ -15,13 +14,17 @@ const tileColors = {
   grassland: '#7cfc00',
 };
 
-function MapView({ onClose, worldPosition, monsters }) {
+function MapView({ onClose, worldPosition, monsters, world }) {
+  if (!world) {
+    return <div>Loading...</div>;
+  }
+
   const tiles = [];
-  for (let r = 0; r < openWorld.length; r += 1) {
-    for (let c = 0; c < openWorld[r].length; c += 1) {
+  for (let r = 0; r < world.length; r += 1) {
+    for (let c = 0; c < world[r].length; c += 1) {
       const isHero = r === worldPosition.row && c === worldPosition.col;
       const isMonster = monsters.some((m) => m.row === r && m.col === c);
-      const tileType = openWorld[r][c] || 'floor';
+      const tileType = world[r][c] || 'floor';
       tiles.push(
         <div
           key={`${r}-${c}`}
