@@ -8,16 +8,21 @@ import React, {
 import './Board.css';
 import Inventory from './components/Inventory';
 import MenuPanel from './components/MenuPanel';
+import MapView from './components/MapView';
 import Monster from './entities/Monster';
 import { GameContext } from './GameContext';
-import level1 from './maps/level1';
+import openWorld from './maps/openWorld';
 import stepSfx from './assets/sounds/step.mp3';
 
 const tileColors = {
   floor: '#8bc34a',  // 초원
   wall: '#9e9e9e',   // 벽
   water: '#42a5f5',  // 바다
-  special: '#ffd700' // 특별 지형
+  special: '#ffd700', // 특별 지형
+  desert: '#e0c070',
+  ice: '#a0e0ff',
+  forest: '#228b22',
+  ocean: '#1e90ff'
 };
 
 const BOARD_SIZE = 7;
@@ -31,6 +36,7 @@ const INITIAL_ITEMS = {
 function Board() {
   const stepAudioRef = useRef(null);
   const [showDpad, setShowDpad] = useState(true);
+  const [showMap, setShowMap] = useState(false);
   // 전역 맵에서의 좌표를 관리한다
   const [worldPosition, setWorldPosition] = useState({ row: 0, col: 0 });
   const [monsters, setMonsters] = useState([
@@ -161,7 +167,7 @@ function Board() {
       const isMonster = monsters.some(
         (m) => m.row === worldRow && m.col === worldCol,
       );
-      const rowData = level1[worldRow];
+      const rowData = openWorld[worldRow];
       const tileType = rowData && rowData[worldCol] ? rowData[worldCol] : 'floor';
       tiles.push(
         <div
@@ -199,6 +205,9 @@ function Board() {
           <button onClick={moveDown} aria-label="down">↓</button>
         </div>
       )}
+      <button type="button" onClick={() => setShowMap(true)}>
+        지도를 보기
+      </button>
       <div className="resources">HP: {health} Gold: {gold}</div>
       <button
         type="button"
@@ -214,6 +223,8 @@ function Board() {
           onUseItem={useItem}
           onClose={() => setShowMenu(false)}
         />
+      {showMap && (
+        <MapView onClose={() => setShowMap(false)} worldPosition={worldPosition} monsters={monsters} />
       )}
     </div>
   );
