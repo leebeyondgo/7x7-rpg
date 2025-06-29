@@ -11,12 +11,9 @@ import MenuPanel from './components/MenuPanel';
 import MapView from './components/MapView';
 import Monster from './entities/Monster';
 import { GameContext } from './GameContext';
-import openWorld from './maps/level1';
 import loadWorld from './maps/loadWorld';
 import stepSfx from './assets/sounds/step.mp3';
 
-const MAP_ROWS = openWorld.length;
-const MAP_COLS = openWorld[0].length;
 
 const tileColors = {
   floor: '#8bc34a',  // 초원
@@ -79,9 +76,12 @@ function Board() {
   }), []);
 
   const move = useCallback((dRow, dCol) => {
+    if (!world) return;
+    const rows = world.length;
+    const cols = world[0].length;
     const newPos = {
-      row: (worldPosition.row + dRow + MAP_ROWS) % MAP_ROWS,
-      col: (worldPosition.col + dCol + MAP_COLS) % MAP_COLS,
+      row: (worldPosition.row + dRow + rows) % rows,
+      col: (worldPosition.col + dCol + cols) % cols,
     };
 
     let updated = handleCombat(newPos, monsters);
@@ -96,7 +96,7 @@ function Board() {
       stepAudioRef.current.play();
     }
     consumeTurn();
-  }, [worldPosition, monsters, handleCombat, moveMonsterAI, consumeTurn]);
+  }, [world, worldPosition, monsters, handleCombat, moveMonsterAI, consumeTurn]);
 
   useEffect(() => {
     stepAudioRef.current = new Audio(stepSfx);
@@ -241,8 +241,8 @@ function Board() {
       {showMap && (
         <MapView
           onClose={() => setShowMap(false)}
-          world={openWorld}
-          dimensions={{ rows: openWorld.length, cols: openWorld[0].length }}
+          world={world}
+          dimensions={{ rows, cols }}
           worldPosition={worldPosition}
           monsters={monsters}
         />
