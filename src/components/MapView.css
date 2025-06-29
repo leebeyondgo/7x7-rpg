@@ -38,3 +38,9 @@
 .map-tile.monster {
   background-color: #2196f3;
 }
+
+.mapview-inline {
+  display: flex;
+  justify-content: center;
+  padding: 10px 0;
+}

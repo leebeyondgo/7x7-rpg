@@ -6,23 +6,24 @@
   bottom: 0;
   background: rgba(0, 0, 0, 0.4);
   display: flex;
-  justify-content: flex-end;
+  align-items: flex-end;
+  justify-content: center;
   z-index: 1000;
 }
 
 .menu-panel {
   background: #fff;
-  width: 80%;
-  max-width: 320px;
-  height: 100%;
-  transform: translateX(100%);
+  width: 100%;
+  height: 70%;
+  max-height: 70%;
+  transform: translateY(100%);
   transition: transform 0.3s ease-out;
-  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.3);
   position: relative;
 }
 
 .menu-panel.open {
-  transform: translateX(0);
+  transform: translateY(0);
 }
 
 .tab-buttons {

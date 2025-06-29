@@ -15,7 +15,14 @@ const tileColors = {
 };
 
 
-function MapView({ onClose, worldPosition, monsters, world, dimensions }) {
+function MapView({
+  onClose,
+  worldPosition,
+  monsters,
+  world,
+  dimensions,
+  inline = false,
+}) {
   const rows = dimensions?.rows ?? world.length;
   const cols = dimensions?.cols ?? (world[0] ? world[0].length : 0);
 
@@ -36,18 +43,26 @@ function MapView({ onClose, worldPosition, monsters, world, dimensions }) {
     }
   }
 
+  const grid = (
+    <div
+      className="map-grid"
+      style={{
+        gridTemplateColumns: `repeat(${cols}, 16px)`,
+        gridTemplateRows: `repeat(${rows}, 16px)`,
+      }}
+    >
+      {tiles}
+    </div>
+  );
+
+  if (inline) {
+    return <div className="mapview-inline">{grid}</div>;
+  }
+
   return (
     <div className="mapview-overlay" role="dialog">
       <div className="mapview">
-        <div
-          className="map-grid"
-          style={{
-            gridTemplateColumns: `repeat(${cols}, 16px)`,
-            gridTemplateRows: `repeat(${rows}, 16px)`,
-          }}
-        >
-          {tiles}
-        </div>
+        {grid}
         <button type="button" onClick={onClose}>닫기</button>
       </div>
     </div>

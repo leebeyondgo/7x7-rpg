@@ -6,9 +6,7 @@ import React, {
   useContext,
 } from 'react';
 import './Board.css';
-import Inventory from './components/Inventory';
 import MenuPanel from './components/MenuPanel';
-import MapView from './components/MapView';
 import Monster from './entities/Monster';
 import { GameContext } from './GameContext';
 import loadWorld from './maps/loadWorld';
@@ -40,7 +38,6 @@ function Board() {
   const stepAudioRef = useRef(null);
   const [world, setWorld] = useState(null);
   const [showDpad, setShowDpad] = useState(true);
-  const [showMap, setShowMap] = useState(false);
   // 전역 맵에서의 좌표를 관리한다
   const [worldPosition, setWorldPosition] = useState({ row: 0, col: 0 });
   const [monsters, setMonsters] = useState([
@@ -55,7 +52,6 @@ function Board() {
   } = useContext(GameContext);
   const [, setItemsOnMap] = useState(INITIAL_ITEMS);
   const [inventory, setInventory] = useState([]);
-  const [showInventory, setShowInventory] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
 
   const handleCombat = useCallback((playerPos, list) => list
@@ -224,16 +220,6 @@ function Board() {
           <button className="down btn" onClick={moveDown} aria-label="down">↓</button>
         </div>
       )}
-      <button type="button" className="btn" onClick={() => setShowMap(true)}>
-        지도를 보기
-      </button>
-      <button
-        type="button"
-        className="menu-button btn"
-        onClick={() => setShowInventory(prev => !prev)}
-      >
-        Inventory
-      </button>
       <button
         type="button"
         className="menu-button btn"
@@ -241,23 +227,15 @@ function Board() {
       >
         Menu
       </button>
-      <div className={`inventory-container${showInventory ? ' open' : ''}`}>
-        <Inventory items={inventory} onUse={useItem} />
-      </div>
       {showMenu && (
         <MenuPanel
           inventory={inventory}
           onUseItem={useItem}
           onClose={() => setShowMenu(false)}
-        />
-      )}
-      {showMap && (
-        <MapView
-          onClose={() => setShowMap(false)}
           world={world}
-          dimensions={{ rows: world.length, cols: world[0].length }}
           worldPosition={worldPosition}
           monsters={monsters}
+          dimensions={{ rows: world.length, cols: world[0].length }}
         />
       )}
     </div>
