@@ -11,7 +11,7 @@ import MenuPanel from './components/MenuPanel';
 import MapView from './components/MapView';
 import Monster from './entities/Monster';
 import { GameContext } from './GameContext';
-import openWorld from './maps/openWorld';
+import loadWorld from './maps/loadWorld';
 import stepSfx from './assets/sounds/step.mp3';
 
 const tileColors = {
@@ -37,6 +37,7 @@ const INITIAL_ITEMS = {
 
 function Board() {
   const stepAudioRef = useRef(null);
+  const [world, setWorld] = useState(null);
   const [showDpad, setShowDpad] = useState(true);
   const [showMap, setShowMap] = useState(false);
   // 전역 맵에서의 좌표를 관리한다
@@ -95,6 +96,10 @@ function Board() {
 
   useEffect(() => {
     stepAudioRef.current = new Audio(stepSfx);
+  }, []);
+
+  useEffect(() => {
+    loadWorld().then(setWorld);
   }, []);
 
 
@@ -157,6 +162,13 @@ function Board() {
     });
   }, [setGold, setHealth]);
 
+  if (!world) {
+    return <div>Loading...</div>;
+  }
+
+  const rows = world.length;
+  const cols = world[0].length;
+
   const tiles = [];
   for (let r = 0; r < BOARD_SIZE; r++) {
     for (let c = 0; c < BOARD_SIZE; c++) {
@@ -167,8 +179,7 @@ function Board() {
       const isMonster = monsters.some(
         (m) => m.row === worldRow && m.col === worldCol,
       );
-      const rowData = openWorld[worldRow];
-      const tileType = rowData && rowData[worldCol] ? rowData[worldCol] : 'floor';
+      const tileType = world[(worldRow + rows) % rows][(worldCol + cols) % cols];
       tiles.push(
         <div
           key={`${worldRow}-${worldCol}`}
@@ -224,7 +235,12 @@ function Board() {
         />
       )}
       {showMap && (
-        <MapView onClose={() => setShowMap(false)} worldPosition={worldPosition} monsters={monsters} />
+        <MapView
+          onClose={() => setShowMap(false)}
+          worldPosition={worldPosition}
+          monsters={monsters}
+          world={world}
+        />
       )}
     </div>
   );
