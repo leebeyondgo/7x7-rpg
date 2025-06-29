@@ -51,10 +51,6 @@
   width: 40px;
   height: 40px;
   margin: 0;
-  background-color: #fff;
-  border: 1px solid #aaa;
-  border-radius: 4px;
-  font-family: inherit;
 }
 
 .dpad button.up {
@@ -83,11 +79,7 @@
 
 .dpad-toggle {
   display: none;
-  background: #fff;
-  border: 1px solid #aaa;
-  border-radius: 4px;
   padding: 4px 8px;
-  font-family: inherit;
 }
 
 .inventory {
@@ -103,11 +95,7 @@
 
 .menu-button {
   margin-top: 10px;
-  background: #fff;
-  border: 1px solid #aaa;
-  border-radius: 4px;
   padding: 4px 8px;
-  font-family: inherit;
 }
 
 @media (max-width: 600px) {
@@ -115,8 +103,6 @@
     display: block;
     margin-top: 10px;
     background: transparent;
-    border: 1px solid #ccc;
-    border-radius: 4px;
     padding: 4px 8px;
     color: inherit;
   }
