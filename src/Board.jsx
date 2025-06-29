@@ -142,16 +142,17 @@ function Board() {
   // 이동 후 아이템 획득 여부 체크
   useEffect(() => {
     const key = `${worldPosition.row},${worldPosition.col}`;
-    const found = itemsOnMap[key];
-    if (found) {
-      setInventory(inv => [...inv, found]);
-      setItemsOnMap(prev => {
+    setItemsOnMap(prev => {
+      const found = prev[key];
+      if (found) {
+        setInventory(inv => [...inv, found]);
         const copy = { ...prev };
         delete copy[key];
         return copy;
-      });
-    }
-  }, [worldPosition, itemsOnMap]);
+      }
+      return prev;
+    });
+  }, [worldPosition]);
 
   const useItem = useCallback((index) => {
     setInventory((inv) => {
