@@ -208,7 +208,6 @@ function Board() {
       <button type="button" onClick={() => setShowMap(true)}>
         지도를 보기
       </button>
-      <div className="resources">HP: {health} Gold: {gold}</div>
       <button
         type="button"
         className="menu-button"

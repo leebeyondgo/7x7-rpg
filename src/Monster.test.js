@@ -1,14 +1,9 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import Board from './Board';
-import { GameProvider } from './GameContext';
+import App from './App';
 
 // 몬스터가 보드에 표시되는지 확인
 test('monster appears on the board', () => {
-  render(
-    <GameProvider>
-      <Board />
-    </GameProvider>
-  );
+  render(<App />);
   const monsterTiles = screen.getAllByRole('presentation').filter(tile =>
     tile.classList.contains('monster')
   );
@@ -16,16 +11,13 @@ test('monster appears on the board', () => {
 });
 
 // 몬스터 위로 이동하면 체력이 감소한다
+
 test('colliding with monster decreases player HP', () => {
-  const { container } = render(
-    <GameProvider>
-      <Board />
-    </GameProvider>
-  );
-  const resources = container.querySelector('.resources');
-  expect(resources).toHaveTextContent('HP: 100');
+  render(<App />);
+  const status = screen.getByTestId('status-bar');
+  expect(status).toHaveTextContent('HP: 100');
 
   fireEvent.keyDown(document, { key: 'ArrowRight', code: 'ArrowRight' });
 
-  expect(resources).toHaveTextContent('HP: 99');
+  expect(status).toHaveTextContent('HP: 99');
 });
