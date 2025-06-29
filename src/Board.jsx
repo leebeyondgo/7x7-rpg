@@ -223,6 +223,7 @@ function Board() {
           onUseItem={useItem}
           onClose={() => setShowMenu(false)}
         />
+      )}
       {showMap && (
         <MapView onClose={() => setShowMap(false)} worldPosition={worldPosition} monsters={monsters} />
       )}
