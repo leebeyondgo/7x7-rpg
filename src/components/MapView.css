@@ -27,8 +27,8 @@
 .map-tile {
   width: 16px;
   height: 16px;
-  border: 1px solid #ccc;
-  border-radius: 2px;
+  border: none;
+  border-radius: 3px;
 }
 
 .map-tile.hero {
