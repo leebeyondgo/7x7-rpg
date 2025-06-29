@@ -7,6 +7,7 @@ import React, {
 } from 'react';
 import './Board.css';
 import Inventory from './components/Inventory';
+import MenuPanel from './components/MenuPanel';
 import MapView from './components/MapView';
 import Monster from './entities/Monster';
 import { GameContext } from './GameContext';
@@ -52,6 +53,7 @@ function Board() {
   } = useContext(GameContext);
   const [itemsOnMap, setItemsOnMap] = useState(INITIAL_ITEMS);
   const [inventory, setInventory] = useState([]);
+  const [showMenu, setShowMenu] = useState(false);
 
   const handleCombat = useCallback((playerPos, list) => list
     .map((m) => {
@@ -207,7 +209,20 @@ function Board() {
         지도를 보기
       </button>
       <div className="resources">HP: {health} Gold: {gold}</div>
+      <button
+        type="button"
+        className="menu-button"
+        onClick={() => setShowMenu(true)}
+      >
+        Menu
+      </button>
       <Inventory items={inventory} onUse={useItem} />
+      {showMenu && (
+        <MenuPanel
+          inventory={inventory}
+          onUseItem={useItem}
+          onClose={() => setShowMenu(false)}
+        />
       {showMap && (
         <MapView onClose={() => setShowMap(false)} worldPosition={worldPosition} monsters={monsters} />
       )}

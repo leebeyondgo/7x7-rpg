@@ -81,6 +81,15 @@
   margin-top: 10px;
 }
 
+.menu-button {
+  margin-top: 10px;
+  background: #fff;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-family: inherit;
+}
+
 @media (max-width: 600px) {
   .dpad-toggle {
     display: block;
