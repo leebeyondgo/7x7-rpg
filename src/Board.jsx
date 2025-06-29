@@ -7,6 +7,7 @@ import React, {
 } from 'react';
 import './Board.css';
 import Inventory from './components/Inventory';
+import MapView from './components/MapView';
 import Monster from './entities/Monster';
 import { GameContext } from './GameContext';
 import openWorld from './maps/openWorld';
@@ -34,6 +35,7 @@ const INITIAL_ITEMS = {
 function Board() {
   const stepAudioRef = useRef(null);
   const [showDpad, setShowDpad] = useState(true);
+  const [showMap, setShowMap] = useState(false);
   // 전역 맵에서의 좌표를 관리한다
   const [worldPosition, setWorldPosition] = useState({ row: 0, col: 0 });
   const [monsters, setMonsters] = useState([
@@ -201,8 +203,14 @@ function Board() {
           <button onClick={moveDown} aria-label="down">↓</button>
         </div>
       )}
+      <button type="button" onClick={() => setShowMap(true)}>
+        지도를 보기
+      </button>
       <div className="resources">HP: {health} Gold: {gold}</div>
       <Inventory items={inventory} onUse={useItem} />
+      {showMap && (
+        <MapView onClose={() => setShowMap(false)} worldPosition={worldPosition} monsters={monsters} />
+      )}
     </div>
   );
 }
