@@ -55,6 +55,7 @@ function Board() {
   } = useContext(GameContext);
   const [, setItemsOnMap] = useState(INITIAL_ITEMS);
   const [inventory, setInventory] = useState([]);
+  const [showInventory, setShowInventory] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
 
   const handleCombat = useCallback((playerPos, list) => list
@@ -227,11 +228,20 @@ function Board() {
       <button
         type="button"
         className="menu-button"
+        onClick={() => setShowInventory(prev => !prev)}
+      >
+        Inventory
+      </button>
+      <button
+        type="button"
+        className="menu-button"
         onClick={() => setShowMenu(true)}
       >
         Menu
       </button>
-      <Inventory items={inventory} onUse={useItem} />
+      <div className={`inventory-container${showInventory ? ' open' : ''}`}>
+        <Inventory items={inventory} onUse={useItem} />
+      </div>
       {showMenu && (
         <MenuPanel
           inventory={inventory}
