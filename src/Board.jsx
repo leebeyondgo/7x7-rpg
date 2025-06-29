@@ -205,7 +205,7 @@ function Board() {
       </div>
       <button
         type="button"
-        className="dpad-toggle"
+        className="dpad-toggle btn"
         onClick={() => setShowDpad(prev => !prev)}
         aria-label="toggle dpad"
       >
@@ -213,20 +213,20 @@ function Board() {
       </button>
       {showDpad && (
         <div className="dpad">
-          <button onClick={moveUp} aria-label="up">↑</button>
+          <button className="btn" onClick={moveUp} aria-label="up">↑</button>
           <div className="middle-row">
-            <button onClick={moveLeft} aria-label="left">←</button>
-            <button onClick={moveRight} aria-label="right">→</button>
+            <button className="btn" onClick={moveLeft} aria-label="left">←</button>
+            <button className="btn" onClick={moveRight} aria-label="right">→</button>
           </div>
-          <button onClick={moveDown} aria-label="down">↓</button>
+          <button className="btn" onClick={moveDown} aria-label="down">↓</button>
         </div>
       )}
-      <button type="button" onClick={() => setShowMap(true)}>
+      <button type="button" className="btn" onClick={() => setShowMap(true)}>
         지도를 보기
       </button>
       <button
         type="button"
-        className="menu-button"
+        className="menu-button btn"
         onClick={() => setShowMenu(true)}
       >
         Menu

@@ -15,7 +15,7 @@ function Inventory({ items, onUse }) {
               {onUse && (
                 <button
                   type="button"
-                  className="use-button"
+                  className="use-button btn"
                   onClick={() => onUse(index)}
                 >
                   Use

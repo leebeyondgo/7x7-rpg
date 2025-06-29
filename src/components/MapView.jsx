@@ -48,7 +48,7 @@ function MapView({ onClose, worldPosition, monsters, world, dimensions }) {
         >
           {tiles}
         </div>
-        <button type="button" onClick={onClose}>닫기</button>
+        <button type="button" className="btn" onClick={onClose}>닫기</button>
       </div>
     </div>
   );

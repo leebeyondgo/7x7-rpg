@@ -24,7 +24,7 @@ function MenuPanel({ inventory = [], onUseItem, onClose }) {
       <div className="menu-panel open">
         <button
           type="button"
-          className="close-button"
+          className="close-button btn"
           onClick={onClose}
           aria-label="close menu"
         >
@@ -36,7 +36,7 @@ function MenuPanel({ inventory = [], onUseItem, onClose }) {
               key={tab.id}
               type="button"
               onClick={() => setActiveTab(tab.id)}
-              className={activeTab === tab.id ? 'active' : ''}
+              className={`btn ${activeTab === tab.id ? 'active' : ''}`}
             >
               {tab.label}
             </button>
