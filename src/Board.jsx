@@ -112,6 +112,9 @@ function Board() {
   const moveDown = useCallback(() => move(1, 0), [move]);
   const moveLeft = useCallback(() => move(0, -1), [move]);
   const moveRight = useCallback(() => move(0, 1), [move]);
+  const handleAction = useCallback(() => {
+    setShowMenu(true);
+  }, [setShowMenu]);
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -214,12 +217,11 @@ function Board() {
       </button>
       {showDpad && (
         <div className="dpad">
-          <button onClick={moveUp} aria-label="up">↑</button>
-          <div className="middle-row">
-            <button onClick={moveLeft} aria-label="left">←</button>
-            <button onClick={moveRight} aria-label="right">→</button>
-          </div>
-          <button onClick={moveDown} aria-label="down">↓</button>
+          <button className="up" onClick={moveUp} aria-label="up">↑</button>
+          <button className="left" onClick={moveLeft} aria-label="left">←</button>
+          <button className="action" onClick={handleAction} aria-label="action">●</button>
+          <button className="right" onClick={moveRight} aria-label="right">→</button>
+          <button className="down" onClick={moveDown} aria-label="down">↓</button>
         </div>
       )}
       <button type="button" onClick={() => setShowMap(true)}>
