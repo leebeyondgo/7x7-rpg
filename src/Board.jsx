@@ -22,7 +22,9 @@ const tileColors = {
   desert: '#e0c070',
   ice: '#a0e0ff',
   forest: '#228b22',
-  ocean: '#1e90ff'
+  ocean: '#1e90ff',
+  jungle: '#006400',
+  grassland: '#7cfc00'
 };
 
 const BOARD_SIZE = 7;
