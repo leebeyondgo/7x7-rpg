@@ -10,15 +10,13 @@ import Inventory from './components/Inventory';
 import Monster from './entities/Monster';
 import { GameContext } from './GameContext';
 import level1 from './maps/level1';
-import floorImg from './assets/environment/visual_grid.png';
-import wallImg from './assets/environment/wall_blocking.png';
-import waterImg from './assets/environment/water0.png';
 import stepSfx from './assets/sounds/step.mp3';
 
-const tileImages = {
-  floor: floorImg,
-  wall: wallImg,
-  water: waterImg,
+const tileColors = {
+  floor: '#8bc34a',  // 초원
+  wall: '#9e9e9e',   // 벽
+  water: '#42a5f5',  // 바다
+  special: '#ffd700' // 특별 지형
 };
 
 const BOARD_SIZE = 7;
@@ -163,7 +161,6 @@ function Board() {
       );
       const rowData = level1[worldRow];
       const tileType = rowData && rowData[worldCol] ? rowData[worldCol] : 'floor';
-      const bg = tileImages[tileType] || floorImg;
       tiles.push(
         <div
           key={`${worldRow}-${worldCol}`}
@@ -171,7 +168,7 @@ function Board() {
           role="presentation"
           data-row={worldRow}
           data-col={worldCol}
-          style={{ backgroundImage: `url(${bg})` }}
+          style={{ backgroundColor: tileColors[tileType] || tileColors.floor }}
         />
       );
     }
