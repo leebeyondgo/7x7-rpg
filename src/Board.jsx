@@ -131,7 +131,6 @@ function Board() {
   }, [moveUp, moveDown, moveLeft, moveRight]);
 
   // 이동 후 아이템 획득 여부 체크
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     const key = `${worldPosition.row},${worldPosition.col}`;
     const found = itemsOnMap[key];
@@ -143,7 +142,7 @@ function Board() {
         return copy;
       });
     }
-  }, [worldPosition]);
+  }, [worldPosition, itemsOnMap]);
 
   const useItem = useCallback((index) => {
     setInventory((inv) => {
