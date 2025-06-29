@@ -144,7 +144,7 @@ function Board() {
         return copy;
       });
     }
-  }, [worldPosition, itemsOnMap]);
+  }, [worldPosition]);
 
   const useItem = useCallback((index) => {
     setInventory((inv) => {
