@@ -48,9 +48,7 @@ function Board() {
 
   const {
     consumeTurn,
-    health,
     setHealth,
-    gold,
     setGold,
   } = useContext(GameContext);
   const [itemsOnMap, setItemsOnMap] = useState(INITIAL_ITEMS);
