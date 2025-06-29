@@ -241,8 +241,8 @@ function Board() {
       {showMap && (
         <MapView
           onClose={() => setShowMap(false)}
-          world={openWorld}
-          dimensions={{ rows: openWorld.length, cols: openWorld[0].length }}
+          world={world}
+          dimensions={{ rows: world.length, cols: world[0].length }}
           worldPosition={worldPosition}
           monsters={monsters}
         />
