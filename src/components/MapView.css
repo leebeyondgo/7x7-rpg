@@ -20,8 +20,8 @@
 
 .map-grid {
   display: grid;
-  grid-template-columns: repeat(10, 16px);
-  grid-template-rows: repeat(10, 16px);
+  grid-template-columns: repeat(20, 16px);
+  grid-template-rows: repeat(20, 16px);
   gap: 2px;
   margin-bottom: 10px;
 }
