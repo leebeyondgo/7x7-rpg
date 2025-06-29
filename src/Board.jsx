@@ -9,14 +9,18 @@ import './Board.css';
 import Inventory from './components/Inventory';
 import Monster from './entities/Monster';
 import { GameContext } from './GameContext';
-import level1 from './maps/level1';
+import openWorld from './maps/openWorld';
 import stepSfx from './assets/sounds/step.mp3';
 
 const tileColors = {
   floor: '#8bc34a',  // 초원
   wall: '#9e9e9e',   // 벽
   water: '#42a5f5',  // 바다
-  special: '#ffd700' // 특별 지형
+  special: '#ffd700', // 특별 지형
+  desert: '#e0c070',
+  ice: '#a0e0ff',
+  forest: '#228b22',
+  ocean: '#1e90ff'
 };
 
 const BOARD_SIZE = 7;
@@ -159,7 +163,7 @@ function Board() {
       const isMonster = monsters.some(
         (m) => m.row === worldRow && m.col === worldCol,
       );
-      const rowData = level1[worldRow];
+      const rowData = openWorld[worldRow];
       const tileType = rowData && rowData[worldCol] ? rowData[worldCol] : 'floor';
       tiles.push(
         <div
