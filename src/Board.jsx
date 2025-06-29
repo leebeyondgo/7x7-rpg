@@ -11,12 +11,9 @@ import MenuPanel from './components/MenuPanel';
 import MapView from './components/MapView';
 import Monster from './entities/Monster';
 import { GameContext } from './GameContext';
-import openWorld from './maps/level1';
 import loadWorld from './maps/loadWorld';
 import stepSfx from './assets/sounds/step.mp3';
 
-const MAP_ROWS = openWorld.length;
-const MAP_COLS = openWorld[0].length;
 
 const tileColors = {
   floor: '#8bc34a',  // 초원
@@ -79,9 +76,12 @@ function Board() {
   }), []);
 
   const move = useCallback((dRow, dCol) => {
+    if (!world) return;
+    const rows = world.length;
+    const cols = world[0].length;
     const newPos = {
-      row: (worldPosition.row + dRow + MAP_ROWS) % MAP_ROWS,
-      col: (worldPosition.col + dCol + MAP_COLS) % MAP_COLS,
+      row: (worldPosition.row + dRow + rows) % rows,
+      col: (worldPosition.col + dCol + cols) % cols,
     };
 
     let updated = handleCombat(newPos, monsters);
@@ -96,7 +96,7 @@ function Board() {
       stepAudioRef.current.play();
     }
     consumeTurn();
-  }, [worldPosition, monsters, handleCombat, moveMonsterAI, consumeTurn]);
+  }, [world, worldPosition, monsters, handleCombat, moveMonsterAI, consumeTurn]);
 
   useEffect(() => {
     stepAudioRef.current = new Audio(stepSfx);
@@ -142,16 +142,17 @@ function Board() {
   // 이동 후 아이템 획득 여부 체크
   useEffect(() => {
     const key = `${worldPosition.row},${worldPosition.col}`;
-    const found = itemsOnMap[key];
-    if (found) {
-      setInventory(inv => [...inv, found]);
-      setItemsOnMap(prev => {
+    setItemsOnMap(prev => {
+      const found = prev[key];
+      if (found) {
+        setInventory(inv => [...inv, found]);
         const copy = { ...prev };
         delete copy[key];
         return copy;
-      });
-    }
-  }, [worldPosition, itemsOnMap]);
+      }
+      return prev;
+    });
+  }, [worldPosition]);
 
   const useItem = useCallback((index) => {
     setInventory((inv) => {
