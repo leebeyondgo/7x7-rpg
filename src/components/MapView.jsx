@@ -14,10 +14,18 @@ const tileColors = {
   grassland: '#7cfc00',
 };
 
-function MapView({ onClose, worldPosition, monsters, world }) {
-  if (!world) {
-    return <div>Loading...</div>;
-  }
+
+function MapView({ onClose, worldPosition, monsters, world, dimensions }) {
+  const rows = dimensions?.rows ?? world.length;
+  const cols = dimensions?.cols ?? (world[0] ? world[0].length : 0);
+
+  const tiles = [];
+  for (let r = 0; r < rows; r += 1) {
+    for (let c = 0; c < cols; c += 1) {
+      const isHero = r === worldPosition.row && c === worldPosition.col;
+      const isMonster = monsters.some((m) => m.row === r && m.col === c);
+      const rowData = world[r] || [];
+      const tileType = rowData[c] || 'floor';
 
   const tiles = [];
   for (let r = 0; r < world.length; r += 1) {
@@ -38,7 +46,15 @@ function MapView({ onClose, worldPosition, monsters, world }) {
   return (
     <div className="mapview-overlay" role="dialog">
       <div className="mapview">
-        <div className="map-grid">{tiles}</div>
+        <div
+          className="map-grid"
+          style={{
+            gridTemplateColumns: `repeat(${cols}, 16px)`,
+            gridTemplateRows: `repeat(${rows}, 16px)`,
+          }}
+        >
+          {tiles}
+        </div>
         <button type="button" onClick={onClose}>닫기</button>
       </div>
     </div>
