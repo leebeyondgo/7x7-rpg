@@ -209,7 +209,7 @@ function Board() {
       </div>
       <button
         type="button"
-        className="dpad-toggle"
+        className="dpad-toggle btn"
         onClick={() => setShowDpad(prev => !prev)}
         aria-label="toggle dpad"
       >
@@ -217,26 +217,26 @@ function Board() {
       </button>
       {showDpad && (
         <div className="dpad">
-          <button className="up" onClick={moveUp} aria-label="up">↑</button>
-          <button className="left" onClick={moveLeft} aria-label="left">←</button>
-          <button className="action" onClick={handleAction} aria-label="action">●</button>
-          <button className="right" onClick={moveRight} aria-label="right">→</button>
-          <button className="down" onClick={moveDown} aria-label="down">↓</button>
+          <button className="up btn" onClick={moveUp} aria-label="up">↑</button>
+          <button className="left btn" onClick={moveLeft} aria-label="left">←</button>
+          <button className="action btn" onClick={handleAction} aria-label="action">●</button>
+          <button className="right btn" onClick={moveRight} aria-label="right">→</button>
+          <button className="down btn" onClick={moveDown} aria-label="down">↓</button>
         </div>
       )}
-      <button type="button" onClick={() => setShowMap(true)}>
+      <button type="button" className="btn" onClick={() => setShowMap(true)}>
         지도를 보기
       </button>
       <button
         type="button"
-        className="menu-button"
+        className="menu-button btn"
         onClick={() => setShowInventory(prev => !prev)}
       >
         Inventory
       </button>
       <button
         type="button"
-        className="menu-button"
+        className="menu-button btn"
         onClick={() => setShowMenu(true)}
       >
         Menu

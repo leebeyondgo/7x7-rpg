@@ -34,8 +34,6 @@
   flex: 1;
   padding: 8px;
   background: transparent;
-  border: none;
-  font-family: inherit;
 }
 
 .tab-buttons button.active {
@@ -52,7 +50,6 @@
   top: 5px;
   right: 5px;
   background: transparent;
-  border: none;
   font-size: 16px;
 }
 
