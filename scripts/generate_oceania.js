@@ -1,14 +1,33 @@
 const fs = require('fs');
-const W = 400;
-const H = 400;
+const W = 200;
+const H = 200;
 
 const geo = JSON.parse(fs.readFileSync('public/maps/oceania.geojson', 'utf8'));
-const polygons = [];
+const rawPolygons = [];
+let minX = Infinity;
+let maxX = -Infinity;
+let minY = Infinity;
+let maxY = -Infinity;
 for (const feature of geo.features) {
   for (const poly of feature.geometry.coordinates) {
-    polygons.push(poly);
+    rawPolygons.push(poly);
+    for (const [x, y] of poly) {
+      if (x < minX) minX = x;
+      if (x > maxX) maxX = x;
+      if (y < minY) minY = y;
+      if (y > maxY) maxY = y;
+    }
   }
 }
+
+const scale = Math.min(W / (maxX - minX), H / (maxY - minY));
+const cx = (minX + maxX) / 2;
+const cy = (minY + maxY) / 2;
+const polygons = rawPolygons.map((poly) => poly
+  .map(([x, y]) => [
+    (x - cx) * scale + W / 2,
+    (y - cy) * scale + H / 2,
+  ]));
 
 function pointInPoly(poly, x, y) {
   let inside = false;
