@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/7x7-rpg/static/css/main.23e90479.css",
-    "main.js": "/7x7-rpg/static/js/main.6a12354a.js",
+    "main.css": "/7x7-rpg/static/css/main.24aed222.css",
+    "main.js": "/7x7-rpg/static/js/main.76c10a13.js",
     "static/js/453.f852e5ca.chunk.js": "/7x7-rpg/static/js/453.f852e5ca.chunk.js",
     "static/media/step.mp3": "/7x7-rpg/static/media/step.0b15e3abd40834dbae9f.mp3",
     "index.html": "/7x7-rpg/index.html",
-    "main.23e90479.css.map": "/7x7-rpg/static/css/main.23e90479.css.map",
-    "main.6a12354a.js.map": "/7x7-rpg/static/js/main.6a12354a.js.map",
+    "main.24aed222.css.map": "/7x7-rpg/static/css/main.24aed222.css.map",
+    "main.76c10a13.js.map": "/7x7-rpg/static/js/main.76c10a13.js.map",
     "453.f852e5ca.chunk.js.map": "/7x7-rpg/static/js/453.f852e5ca.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.23e90479.css",
-    "static/js/main.6a12354a.js"
+    "static/css/main.24aed222.css",
+    "static/js/main.76c10a13.js"
   ]
 }
