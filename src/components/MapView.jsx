@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import './MapView.css';
 import tileColors from '../utils/tileColors';
 
@@ -13,35 +13,41 @@ function MapView({
 }) {
   const rows = dimensions?.rows ?? world.length;
   const cols = dimensions?.cols ?? (world[0] ? world[0].length : 0);
+  const tileSize = 16;
+  const canvasRef = useRef(null);
 
-  const tiles = [];
-  for (let r = 0; r < rows; r += 1) {
-    for (let c = 0; c < cols; c += 1) {
-      const isHero = r === worldPosition.row && c === worldPosition.col;
-      const isMonster = monsters.some((m) => m.row === r && m.col === c);
-      const rowData = world[r] || [];
-      const tileType = rowData[c] || 'floor';
-      tiles.push(
-        <div
-          key={`${r}-${c}`}
-          className={`map-tile${isHero ? ' hero' : isMonster ? ' monster' : ''}`}
-          style={{ backgroundColor: tileColors[tileType] || tileColors.floor }}
-        />
-      );
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    canvas.width = cols * tileSize;
+    canvas.height = rows * tileSize;
+
+    for (let r = 0; r < rows; r += 1) {
+      for (let c = 0; c < cols; c += 1) {
+        const rowData = world[r] || [];
+        const tileType = rowData[c] || 'floor';
+        ctx.fillStyle = tileColors[tileType] || tileColors.floor;
+        ctx.fillRect(c * tileSize, r * tileSize, tileSize, tileSize);
+      }
     }
-  }
 
-  const grid = (
-    <div
-      className="map-grid"
-      style={{
-        gridTemplateColumns: `repeat(${cols}, 16px)`,
-        gridTemplateRows: `repeat(${rows}, 16px)`,
-      }}
-    >
-      {tiles}
-    </div>
-  );
+    ctx.fillStyle = '#f44336';
+    ctx.fillRect(
+      worldPosition.col * tileSize + 4,
+      worldPosition.row * tileSize + 4,
+      tileSize - 8,
+      tileSize - 8,
+    );
+
+    ctx.fillStyle = '#2196f3';
+    monsters.forEach((m) => {
+      ctx.fillRect(m.col * tileSize + 4, m.row * tileSize + 4, tileSize - 8, tileSize - 8);
+    });
+  }, [world, worldPosition, monsters, rows, cols]);
+
+  const grid = <canvas ref={canvasRef} className="map-canvas" />;
 
   if (inline) {
     return <div className="mapview-inline">{grid}</div>;
