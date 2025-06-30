@@ -23,6 +23,11 @@ Shattered Pixel Dungeon의 그래픽과 사운드는 주로 아이템에 활용�
 오픈 월드 지형을 편집하려면 `public/maps/world.csv`만 수정하면 됩니다. 이 파일은
 현재 `src/maps/level1.js` 파일은 사용되지 않아 삭제되었습니다.
 400×400 크기의 CSV 형식이며 각 칸에는 `forest`, `desert`와 같은 지형 이름을 입력합니다.
+`public/maps/oceania.geojson` 파일을 바탕으로 기본 지형을 생성하려면 다음 명령을 실행합니다.
+```bash
+npm run generate:oceania
+```
+실행 후 `public/maps/world.csv` 파일이 새로 만들어집니다.
 수정 후 개발 서버를 재시작하면 변경 사항이 반영됩니다. 맵의 경계는 서로 연결되어 있어
 오른쪽 끝을 지나면 왼쪽 끝으로, 위쪽 끝을 지나면 아래쪽으로 이어지는 순환형 구조를
 이룹니다.
