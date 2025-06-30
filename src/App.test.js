@@ -102,12 +102,12 @@ test('column index wraps to 0 when moving right past the edge', async () => {
   const board = await screen.findByTestId('board');
   const centerIndex = Math.floor(board.children.length / 2);
 
-  for (let i = 0; i < 9; i += 1) {
+  for (let i = 0; i < 19; i += 1) {
     fireEvent.keyDown(document, { key: 'ArrowRight', code: 'ArrowRight' });
   }
 
   let centerTile = screen.getByTestId('board').children[centerIndex];
-  expect(Number(centerTile.getAttribute('data-col'))).toBe(9);
+  expect(Number(centerTile.getAttribute('data-col'))).toBe(19);
 
   fireEvent.keyDown(document, { key: 'ArrowRight', code: 'ArrowRight' });
 
