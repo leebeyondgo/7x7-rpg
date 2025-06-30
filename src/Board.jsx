@@ -66,11 +66,18 @@ function Board() {
     })
     .filter(Boolean), [setHealth]);
 
-  const moveMonsterAI = useCallback((list) => list.map((m) => {
-    const dirs = [[1, 0], [-1, 0], [0, 1], [0, -1], [0, 0]];
-    const [dr, dc] = dirs[Math.floor(Math.random() * dirs.length)];
-    return new Monster(m.row + dr, m.col + dc, m.hp);
-  }), []);
+  const moveMonsterAI = useCallback((list) => {
+    if (!world) return list;
+    const rows = world.length;
+    const cols = world[0].length;
+    return list.map((m) => {
+      const dirs = [[1, 0], [-1, 0], [0, 1], [0, -1], [0, 0]];
+      const [dr, dc] = dirs[Math.floor(Math.random() * dirs.length)];
+      const newRow = (m.row + dr + rows) % rows;
+      const newCol = (m.col + dc + cols) % cols;
+      return new Monster(newRow, newCol, m.hp);
+    });
+  }, [world]);
 
   const move = useCallback((dRow, dCol) => {
     if (!world) return;
