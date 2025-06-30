@@ -48,7 +48,7 @@ function MapView({
     monsters.forEach((m) => {
       ctx.fillRect(m.col * tileSize + 4, m.row * tileSize + 4, tileSize - 8, tileSize - 8);
     });
-  }, [world, worldPosition, monsters, rows, cols]);
+  }, [world, worldPosition, monsters, rows, cols, tileSize]);
 
   const grid = <canvas ref={canvasRef} className="map-canvas" />;
 
