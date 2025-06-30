@@ -37,7 +37,7 @@ function Board() {
     setHealth,
     setGold,
   } = useContext(GameContext);
-  const [, setItemsOnMap] = useState(INITIAL_ITEMS);
+  const [itemsOnMap, setItemsOnMap] = useState(INITIAL_ITEMS);
   const [inventory, setInventory] = useState([]);
   const [showMenu, setShowMenu] = useState(false);
 
@@ -178,11 +178,12 @@ function Board() {
       const isMonster = monsters.some(
         (m) => m.row === worldRow && m.col === worldCol,
       );
+      const hasItem = Boolean(itemsOnMap[`${worldRow},${worldCol}`]);
       const tileType = world[(worldRow + rows) % rows][(worldCol + cols) % cols];
       tiles.push(
         <div
           key={`${worldRow}-${worldCol}`}
-          className={`tile${isHero ? ' hero' : isMonster ? ' monster' : ''}`}
+          className={`tile${isHero ? ' hero' : isMonster ? ' monster' : ''}${hasItem ? ' item' : ''}`}
           role="presentation"
           data-row={worldRow}
           data-col={worldCol}
