@@ -1,18 +1,6 @@
 import React from 'react';
 import './MapView.css';
-
-const tileColors = {
-  floor: '#8bc34a',
-  wall: '#9e9e9e',
-  water: '#42a5f5',
-  special: '#ffd700',
-  desert: '#e0c070',
-  ice: '#a0e0ff',
-  forest: '#228b22',
-  ocean: '#1e90ff',
-  jungle: '#006400',
-  grassland: '#7cfc00',
-};
+import tileColors from '../utils/tileColors';
 
 
 function MapView({
