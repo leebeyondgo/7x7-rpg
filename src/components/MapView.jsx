@@ -13,7 +13,8 @@ function MapView({
 }) {
   const rows = dimensions?.rows ?? world.length;
   const cols = dimensions?.cols ?? (world[0] ? world[0].length : 0);
-  const tileSize = 16;
+  const maxSize = 200;
+  const tileSize = Math.min(maxSize / cols, maxSize / rows);
   const canvasRef = useRef(null);
 
   useEffect(() => {
@@ -23,6 +24,8 @@ function MapView({
     if (!ctx) return;
     canvas.width = cols * tileSize;
     canvas.height = rows * tileSize;
+    canvas.style.width = `${maxSize}px`;
+    canvas.style.height = `${maxSize}px`;
 
     for (let r = 0; r < rows; r += 1) {
       for (let c = 0; c < cols; c += 1) {
