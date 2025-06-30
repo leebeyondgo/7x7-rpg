@@ -36,6 +36,7 @@ function MenuPanel({
   return (
     <div className="menu-overlay" role="dialog" aria-label="menu panel">
       <div className="menu-panel open">
+        <div className="drawer-handle" />
         <button
           type="button"
           className="close-button btn"
