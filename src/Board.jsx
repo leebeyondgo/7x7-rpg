@@ -97,6 +97,15 @@ function Board() {
     loadWorld().then(setWorld);
   }, []);
 
+  useEffect(() => {
+    if (world) {
+      setWorldPosition({
+        row: Math.floor(world.length / 2),
+        col: Math.floor(world[0].length / 2),
+      });
+    }
+  }, [world]);
+
 
   const moveUp = useCallback(() => move(-1, 0), [move]);
   const moveDown = useCallback(() => move(1, 0), [move]);
